@@ -97,20 +97,8 @@ function repampbound(T::TensorMatrix)
   return sum(repampbound(T,l) for l = 1:length(T))
 end
 
-function fullUnfold(T::TensorMatrix)
-  s = [sizes(T)[i][j] for j = 1:2, i in eachindex(sizes(T))]
-  t = Tensor(T)
-  L = length(t)
-  dim = zeros(Int64,2L);
-  dim[1:L] = (2L-1):-2:1;
-  dim[(L+1):(2L)] = (2L):-2:2;
-  return reshape(dimpermute(
-    reshape(decompress(t), (s[:]...)),
-    dim), (prod(s[1,:]), prod(s[2,:])))
-end
-
 function repcondbound(T::TensorMatrix)
-  return repampbound(T) / minimum(svdvals(fullUnfold(T)))
+  return repampbound(T) / minimum(svdvals(unfold(T)))
 end
 
 end

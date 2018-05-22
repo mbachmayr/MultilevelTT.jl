@@ -247,6 +247,19 @@ function unfold(t::Tensor)
   return reshape(r, (s1[1],prod(sizes(t)),size(t[end],3)))
 end
 
+# assemble matrix tensor train
+function unfold(T::TensorMatrix)
+  s = [sizes(T)[i][j] for j = 1:2, i in eachindex(sizes(T))]
+  t = Tensor(T)
+  L = length(t)
+  dim = zeros(Int64,2L);
+  dim[1:L] = (2L-1):-2:1;
+  dim[(L+1):(2L)] = (2L):-2:2;
+  return reshape(dimpermute(
+    reshape(decompress(t), (s[:]...)),
+    dim), (prod(s[1,:]), prod(s[2,:])))
+end
+
 # evaluate one entry of tensor represented by tensor train
 function evaluate(t::Tensor, idx)
   r = t[1][:,idx[1],:]

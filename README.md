@@ -1,10 +1,10 @@
 # MultilevelTT
 
-Example [Julia](https://julialang.org/) code for <https://arxiv.org/abs/1802.09062>. 
+Example [Julia](https://julialang.org/) code for <https://arxiv.org/abs/1802.09062>. This package is for Julia 0.6, a version for Julia 1.0+ will be provided soon.
 
 Includes a basic implementation of the tensor train format, assembly of the preconditioned low-rank representations developed in the paper, generic iterative solvers (including a wrapper for AMEn as implemented in [ttpy](https://github.com/oseledets/ttpy)) and some routines for running tests.
 
-To install the package, run <code>Pkg.clone("https://github.com/mbachmayr/MultilevelTT.jl.git")</code>
+To install the package, run <code>Pkg.clone("https://github.com/mbachmayr/MultilevelTT.jl.git")</code> in Julia 0.6.
 
 `using MultilevelTT` only modifies the module search path `LOAD_PATH` so that the following modules can be loaded separately via `using`:
 - `TT`, basic tensor train functions.
